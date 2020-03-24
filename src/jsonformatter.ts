@@ -62,6 +62,24 @@ function isBareProp(prop: string): boolean {
 }
 
 /**
+ * Is this a link?
+ * @param property string
+ * @param value string
+ */
+function isLink(value: string, path: string): boolean {
+  if (typeof value !== "string") {
+    return false;
+  }
+  if (/^(http|https|file):\/\/[^\s]+$/i.test(value)) {
+    return true;
+  }
+  if (/_links\.\w[-\w]+\.href$/.test(path)) {
+    return true;
+  }
+  return false ;
+}
+
+/**
  * Surround value with a span, including the given className
  */
 function decorateWithSpan(value: any, className: string) {
@@ -84,12 +102,10 @@ function valueToHTML(value: any, path: string) {
             value.charCodeAt(0) === 8203 &&
             !isNaN(value.slice(1))) {
     return decorateWithSpan(value.slice(1), 'num');
+  } else if (isLink(value, path)) {
+    return `<a href="${htmlEncode(value)}"><span class="q">&quot;</span>${jsString(value)}<span class="q">&quot;</span></a>`;
   } else if (valueType === 'string') {
-    if (/^(http|https|file):\/\/[^\s]+$/i.test(value)) {
-      return `<a href="${htmlEncode(value)}"><span class="q">&quot;</span>${jsString(value)}<span class="q">&quot;</span></a>`;
-    } else {
-      return `<span class="string">&quot;${jsString(value)}&quot;</span>`;
-    }
+    return `<span class="string">&quot;${jsString(value)}&quot;</span>`;
   } else if (valueType === 'boolean') {
     return decorateWithSpan(value, 'bool');
   }

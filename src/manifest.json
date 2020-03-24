@@ -1,10 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "JSONView",
-  "version": "2.0.0",
+  "name": "JSONView-HATEOAS",
+  "version": "0.0.1",
   "description": "__MSG_extensionDescription__",
-  "author": "Benjamin Hollis",
-  "homepage_url": "https://jsonview.com/",
+  "authors": [
+    { "name": "Robert Ewald", "email": "jsonview@r3wald.net" },
+    { "name": "Benjamin Hollis", "email": "jsonview@brh.numbera.com" }
+  ],
+  "homepage_url": "https://github.com/r3wald/jsonview-hateoas",
   "icons": {
     "32": "icon.png",
     "48": "icon48.png",
@@ -21,19 +24,12 @@
       "js": ["content.js"]
     }
   ],
-  "permissions": [
-    "<all_urls>",
-    "webRequest",
-    "webRequestBlocking"
-  ],
+  "permissions": ["<all_urls>", "webRequest", "webRequestBlocking"],
   "applications": {
     "gecko": {
       "id": "jsonview@brh.numbera.com"
     }
   },
-  "web_accessible_resources": [
-    "viewer.css",
-    "viewer.js"
-  ],
+  "web_accessible_resources": ["viewer.css", "viewer.js"],
   "default_locale": "en"
 }
